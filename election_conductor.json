@@ -1,0 +1,149 @@
+{
+  "ApplicationName": "Ballot",
+  "DisplayName": "Ballot for election",
+  "Description": "A simple application to conduct secure elections using Azure Blockchain",
+  "ApplicationRoles": [
+    {
+      "Name": "Voter",
+      "Description": "A person voting in the system"
+    }
+  ],
+  "Workflows": [
+    {
+      "Name": "Ballot",
+      "DisplayName": "election-system",
+      "Description": "Send a vote and verify",
+      "Initiators": ["Voter"],
+      "StartState": "voters",
+      "Properties": [
+        {
+          "Name": "voters",
+          "DisplayName": "voters",
+          "Description": "Holds the state of the contract.",
+          "Type": {
+            "Name": "Voter"
+          }
+        },
+        {
+          "Name": "proposals",
+          "DisplayName": "proposals",
+          "Description": "A person who can vote",
+          "Type": {
+            "Name": "Proposal"
+          }
+        },
+        {
+          "Name": "chairperson",
+          "DisplayName": "chairperson",
+          "Description": "A request message.",
+          "Type": {
+            "Name": "address"
+          }
+        }
+      ],
+      "Constructor": {
+        "Parameters": [
+          {
+            "Name": "proposalNames",
+            "Description": "...",
+            "DisplayName": "proposalNames",
+            "Type": {
+              "Name": "Proposal"
+            }
+          }
+        ]
+      },
+      "Functions": [
+        {
+          "Name": "giveRightToVote",
+          "DisplayName": "giveRightToVote",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "voter",
+              "Description": "...",
+              "DisplayName": "voter",
+              "Type": {
+                "Name": "address"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "delegate",
+          "DisplayName": "delegate",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "to",
+              "Description": "...",
+              "DisplayName": "to",
+              "Type": {
+                "Name": "address"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "delegate",
+          "DisplayName": "delegate",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "to",
+              "Description": "...",
+              "DisplayName": "to",
+              "Type": {
+                "Name": "address"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "vote",
+          "DisplayName": "vote",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "proposal",
+              "Description": "...",
+              "DisplayName": "proposal",
+              "Type": {
+                "Name": "uint"
+              }
+            }
+          ]
+        }
+      ],
+      "States": [
+        {
+          "Name": "voted",
+          "DisplayName": "voted",
+          "Description": "...",
+          "PercentComplete": 100,
+          "Value": 1,
+          "Style": "Success",
+          "Transitions": []
+        },
+        {
+          "Name": "notVoted",
+          "DisplayName": "notVoter",
+          "Description": "...",
+          "PercentComplete": 0,
+          "Value": 0,
+          "Style": "Failure",
+          "Transitions": [
+            {
+              "AllowedRoles": ["Voter"],
+              "AllowedInstanceRoles": [],
+              "Description": "...",
+              "Function": "voteForACandidate",
+              "NextStates": ["voted"],
+              "DisplayName": "Vote"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
